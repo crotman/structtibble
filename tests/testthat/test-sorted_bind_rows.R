@@ -6,7 +6,8 @@ test_that("sorted_bind functions", {
     other = stringr::str_glue("anything-{rnorm(n = 100)}")
   ) %>%
     sorted_tibble(
-      key = id
+      key = id,
+      autonumbered_id = auto_id
     )
 
   y <- tibble::tibble(
@@ -25,7 +26,9 @@ test_that("sorted_bind functions", {
 
   expect_equal(is(ans, "sorted_tbl"), TRUE)
 
+  expect_equal(attr(ans, "max_autonumbered") , max(ans$auto_id))
 
+  expect_equal(nrow(ans) , 104)
 
 })
 
